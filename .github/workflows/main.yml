@@ -1,0 +1,22 @@
+name: Check Kernel Parameters
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check-kernel-params:
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu:latest
+      options: --privileged
+    steps:
+      - name: Install procps
+        run: |
+          apt-get update
+          apt-get install -y procps
+      - name: Display kernel.kptr_restrict
+        run: |
+          sysctl kernel.kptr_restrict
+      - name: Display kernel.perf_event_paranoid
+        run: |
+          sysctl kernel.perf_event_paranoid
